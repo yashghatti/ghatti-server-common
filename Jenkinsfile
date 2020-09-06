@@ -17,5 +17,19 @@ pipeline {
             }
         }
         
+        stage('Stop Portainer'){
+            steps{
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    echo '==> Starting Portainer'
+                    sh 'sudo docker rm $(sudo docker ps -aqf "name=portainer") -f'
+                }    
+            }
+        }
+        stage('Run Portainer'){
+            steps{
+                sh 'sudo docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --privileged --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce'
+            }
+        }
+        
     }
 }
