@@ -8,3 +8,10 @@ Ports   -  9200, 9300
 Volume  -  /var/lib/elastic/search:/usr/share/elasticsearch/data
 Env     -  "discovery.type=single-node"
 ```
+
+### portainer
+```
+Image   -  portainer/portainer-ce
+Ports   -  8000, 9000
+Volume  -  /var/run/docker.sock:/var/run/docker.sock, portainer_data:/data
+```
